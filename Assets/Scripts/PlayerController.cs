@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     Rigidbody2D rigid2D;
+    Animator animator;
     public float jumpForce = 680.0f;  // puclic にすると inspector で指定できる
     public float walkForce = 30.0f;
     public float maxWalkSpeed = 2.0f;
@@ -14,6 +15,7 @@ public class PlayerController : MonoBehaviour
     {
         Application.targetFrameRate = 60;
         this.rigid2D = GetComponent<Rigidbody2D>();  // 毎回参照する必要がないため、 Start 時に一度取得して、Update 時に必要に応じて使用する
+        this.animator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -48,5 +50,8 @@ public class PlayerController : MonoBehaviour
         if(key != 0) {
             transform.localScale = new Vector3(key, 1, 1);
         }
+
+        // プレイヤーの速度に応じてアニメーション速度を変える
+        this.animator.speed = speedx / 2.0f;
     }
 }
