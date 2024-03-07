@@ -26,8 +26,15 @@ public class PlayerController : MonoBehaviour
 
         // 左右移動
         int key = 0;
-        if(Input.GetKey(KeyCode.RightArrow)) key = 1;
-        if(Input.GetKey(KeyCode.LeftArrow)) key = -1;
+
+        if(Input.GetKey(KeyCode.RightArrow)) {
+            key = 1;
+        }
+
+        if(Input.GetKey(KeyCode.LeftArrow)) {
+            key = -1;
+        }
+
 
         // プレイヤの速度
         float speedx = Mathf.Abs(this.rigid2D.velocity.x);
@@ -35,6 +42,11 @@ public class PlayerController : MonoBehaviour
         // スピード制限
         if(speedx < this.maxWalkSpeed) {
             this.rigid2D.AddForce(transform.right * key * this.walkForce);
+        }
+
+        // 動く方向に応じて反転
+        if(key != 0) {
+            transform.localScale = new Vector3(key, 1, 1);
         }
     }
 }
